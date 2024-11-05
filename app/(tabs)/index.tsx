@@ -1,70 +1,120 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { useRouter } from "expo-router";
+import { StepForward, Star, Package, PackageOpen } from "@tamagui/lucide-icons";
+import {
+  YGroup,
+  ListItem,
+  Card,
+  H2,
+  Paragraph,
+  Button,
+  XStack,
+  YStack,
+  ScrollView,
+} from "tamagui";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
-export default function HomeScreen() {
+const Home = () => {
+  const routers = useRouter();
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
-}
+    <ScrollView
+      backgroundColor="$background"
+      paddingVertical="$5"
+      paddingHorizontal="$3"
+    >
+      <XStack
+        padding="$2"
+        gap="$5"
+        justifyContent="center"
+        alignContent="center"
+      >
+        <Card
+          elevate
+          size="$4"
+          bordered
+          animation="bouncy"
+          width={150}
+          height={150}
+          hoverStyle={{ scale: 0.925 }}
+          pressStyle={{ scale: 0.875 }}
+          padding="$2"
+        >
+          <Card.Header>
+            <H2>加密</H2>
+            <Paragraph theme="alt2">Encrypto</Paragraph>
+          </Card.Header>
+          <Card.Footer>
+            <XStack flex={1} />
+            <Button
+              borderRadius="$10"
+              onPress={() => {
+                console.log('routers.push("/encrypto")');
+                routers.push("/encrypto");
+              }}
+            >
+              进入
+            </Button>
+          </Card.Footer>
+          <Card.Background
+            paddingLeft="$2"
+            paddingBottom="$2"
+            justifyContent="flex-end"
+            alignContent="flex-end"
+            alignItems="flex-start"
+            fullscreen
+          >
+            <Package size={35} />
+          </Card.Background>
+        </Card>
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+        <Card
+          elevate
+          size="$4"
+          bordered
+          animation="bouncy"
+          width={150}
+          height={150}
+          hoverStyle={{ scale: 0.925 }}
+          pressStyle={{ scale: 0.875 }}
+          onPress={() => routers.push("/encrypto")}
+          padding="$2"
+        >
+          <Card.Header>
+            <H2>解密</H2>
+            <Paragraph theme="alt2">Decypto</Paragraph>
+          </Card.Header>
+          <Card.Footer>
+            <XStack flex={1} />
+            <Button borderRadius="$10">进入</Button>
+          </Card.Footer>
+          <Card.Background
+            paddingLeft="$2"
+            paddingBottom="$2"
+            justifyContent="flex-end"
+            alignContent="flex-end"
+            alignItems="flex-start"
+          >
+            <PackageOpen size={35} />
+          </Card.Background>
+        </Card>
+      </XStack>
+      <YStack marginTop="$10">
+        <YGroup size="$2" borderRadius="$7">
+          <YGroup.Item>
+            <ListItem hoverTheme icon={Star} title="加密/解密 步骤如下: " />
+          </YGroup.Item>
+          <YGroup.Item>
+            <ListItem hoverTheme icon={StepForward}>
+              1. 明文 -&gt; 先进行AES解密/（加密）
+            </ListItem>
+          </YGroup.Item>
+          <YGroup.Item>
+            <ListItem hoverTheme icon={StepForward}>
+              2. AES -&gt; 进行JWT解密/（加密）
+            </ListItem>
+          </YGroup.Item>
+        </YGroup>
+      </YStack>
+    </ScrollView>
+  );
+};
+
+export default Home;
