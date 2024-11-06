@@ -35,15 +35,27 @@ importers:
       '@tamagui/lucide-icons':
         specifier: ^1.116.12
         version: 1.116.12(react-native-svg@15.8.0(react-native@0.74.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0))(react@18.2.0)
+      '@tamagui/toast':
+        specifier: ^1.116.12
+        version: 1.116.12(react@18.2.0)
+      '@types/crypto-js':
+        specifier: ^4.2.2
+        version: 4.2.2
+      burnt:
+        specifier: ^0.12.2
+        version: 0.12.2(expo@51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0)))(react-dom@18.2.0(react@18.2.0))(react-native@0.74.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0)
+      crypto-js:
+        specifier: 4.1.1
+        version: 4.1.1
       expo:
         specifier: ~51.0.38
         version: 51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))
+      expo-clipboard:
+        specifier: ^6.0.3
+        version: 6.0.3(expo@51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0)))
       expo-constants:
         specifier: ~16.0.2
         version: 16.0.2(expo@51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0)))
-      expo-crypto:
-        specifier: ^13.0.2
-        version: 13.0.2(expo@51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0)))
       expo-font:
         specifier: ~12.0.10
         version: 12.0.10(expo@51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0)))
@@ -65,9 +77,6 @@ importers:
       expo-system-ui:
         specifier: ~3.0.7
         version: 3.0.7(expo@51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0)))
-      expo-updates:
-        specifier: ~0.25.27
-        version: 0.25.27(expo@51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0)))
       expo-web-browser:
         specifier: ~13.0.3
         version: 13.0.3(expo@51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0)))
@@ -80,9 +89,6 @@ importers:
       react-native:
         specifier: 0.74.5
         version: 0.74.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.2.79)(react@18.2.0)
-      react-native-aes-crypto:
-        specifier: ^3.0.3
-        version: 3.0.3
       react-native-gesture-handler:
         specifier: ~2.16.2
         version: 2.16.2(react-native@0.74.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0)
@@ -1241,10 +1247,6 @@ packages:
 
   '@expo/env@0.3.0':
     resolution: {integrity: sha512-OtB9XVHWaXidLbHvrVDeeXa09yvTl3+IQN884sO6PhIi2/StXfgSH/9zC7IvzrDB8kW3EBJ1PPLuCUJ2hxAT7Q==}
-
-  '@expo/fingerprint@0.10.3':
-    resolution: {integrity: sha512-h/BnnyloJyMSrzeXonKLE6HfiMpRg3e9m8CAv+eUaAozG9heKMG9ftHW4cfm2StDYj/rWjFc5YK6MSIX6qd+xg==}
-    hasBin: true
 
   '@expo/image-utils@0.5.1':
     resolution: {integrity: sha512-U/GsFfFox88lXULmFJ9Shfl2aQGcwoKPF7fawSCLixIKtMCpsI+1r0h+5i0nQnmt9tHuzXZDL8+Dg1z6OhkI9A==}
@@ -2468,6 +2470,11 @@ packages:
   '@tamagui/timer@1.116.12':
     resolution: {integrity: sha512-P5R0fd3j3Q3UlgMO3SgRVvJ38iSCEg/eLXz6KNQBxvQ1R33gHYAVojOelE+6GgU5cMsU9OZdXt9n5AjBFgGiYw==}
 
+  '@tamagui/toast@1.116.12':
+    resolution: {integrity: sha512-bKiX9ZEtXKmAejexue1QqOIw86eSRp9z8sPNcsfAZDfIZjEBtfm9DOE+zZIf37zKCb98lOCC4xrQTdbQgqKpPQ==}
+    peerDependencies:
+      react: '*'
+
   '@tamagui/toggle-group@1.116.12':
     resolution: {integrity: sha512-0EU/p9ltKI1ccW+Tl3Pp92mfE8I8HqH2Vog5iizBmx9gEj/Xt9b9oJLi2feGd4BcjouXa5CKE8RHEyNFZEz9gg==}
     peerDependencies:
@@ -2574,6 +2581,9 @@ packages:
 
   '@types/cookie@0.6.0':
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
+
+  '@types/crypto-js@4.2.2':
+    resolution: {integrity: sha512-sDOLlVbHhXpAUAL0YHDUUwDZf3iN4Bwi4W6a0W0b+QcAezUbRtH4FVb+9J4h+XFPW7l/gQ9F8qC7P+Ec4k8QVQ==}
 
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
@@ -2841,9 +2851,6 @@ packages:
   application-config-path@0.1.1:
     resolution: {integrity: sha512-zy9cHePtMP0YhwG+CfHm0bgwdnga2X3gZexpdCwEj//dpb+TKajtiC8REEUJUSq6Ab4f9cgNy2l8ObXzCXFkEw==}
 
-  arg@4.1.0:
-    resolution: {integrity: sha512-ZWc51jO3qegGkVh8Hwpv636EkbesNV5ZNQPCtRa+0qytRYPEs9IYT9qITY9buezqUH5uqyzlWLcufrzU2rffdg==}
-
   arg@5.0.2:
     resolution: {integrity: sha512-PYjyFOLKQ9y57JvQ6QLo8dAgNqswh8M1RMJYdQduT6xbWSgK36P/Z/v+p888pM69jMMfS8Xd8F6I1kQ/I9HUGg==}
 
@@ -3060,6 +3067,13 @@ packages:
   bundle-name@4.1.0:
     resolution: {integrity: sha512-tjwM5exMg6BGRI+kNmTntNsvdZS1X8BFYS6tnJ2hdH0kVxM6/eVZ2xy+FqStSWvYmtfFMDLIxurorHwDKfDz5Q==}
     engines: {node: '>=18'}
+
+  burnt@0.12.2:
+    resolution: {integrity: sha512-bbZjGN4Om7dykr8ZcLb0tTO5L2becMR+HIez1ySUGgG/rvK+ePgBEuBA6lMOZqOTsUXhIKFUBH0sCXQ25fq5SA==}
+    peerDependencies:
+      expo: '*'
+      react: '*'
+      react-native: '*'
 
   busboy@1.6.0:
     resolution: {integrity: sha512-8SFQbg/0hQ9xy3UNTB0YEnsNBbWfhf7RtnzpL7TkBiTBRfrQ9Fxcnz7VJsleJpyp6rVLvXiuORqjlHi5q+PYuA==}
@@ -3385,6 +3399,9 @@ packages:
 
   crypt@0.0.2:
     resolution: {integrity: sha512-mCxBlsHFYh9C+HVpiEacem8FEBnMXgU9gy4zmNC+SXAZNB/1idgp/aulFJ4FgCi7GPEVbfyng092GqL2k2rmow==}
+
+  crypto-js@4.1.1:
+    resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==}
 
   crypto-js@4.2.0:
     resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
@@ -3818,18 +3835,15 @@ packages:
     peerDependencies:
       expo: '*'
 
+  expo-clipboard@6.0.3:
+    resolution: {integrity: sha512-RIKDsuHkYfaspifbFpVC8sBVFKR05L7Pj7mU2/XkbrW9m01OBNvdpGraXEMsTFCx97xMGsZpEw9pPquL4j4xVg==}
+    peerDependencies:
+      expo: '*'
+
   expo-constants@16.0.2:
     resolution: {integrity: sha512-9tNY3OVO0jfiMzl7ngb6IOyR5VFzNoN5OOazUWoeGfmMqVB5kltTemRvKraK9JRbBKIw+SOYLEmF0sEqgFZ6OQ==}
     peerDependencies:
       expo: '*'
-
-  expo-crypto@13.0.2:
-    resolution: {integrity: sha512-7f/IMPYJZkBM21LNEMXGrNo/0uXSVfZTwufUdpNKedJR0fm5fH4DCSN79ZddlV26nF90PuXjK2inIbI6lb0qRA==}
-    peerDependencies:
-      expo: '*'
-
-  expo-eas-client@0.12.0:
-    resolution: {integrity: sha512-Jkww9Cwpv0z7DdLYiRX0r4fqBEcI9cKqTn7cHx63S09JaZ2rcwEE4zYHgrXwjahO+tU2VW8zqH+AJl6RhhW4zA==}
 
   expo-file-system@17.0.1:
     resolution: {integrity: sha512-dYpnZJqTGj6HCYJyXAgpFkQWsiCH3HY1ek2cFZVHFoEc5tLz9gmdEgTF6nFHurvmvfmXqxi7a5CXyVm0aFYJBw==}
@@ -3841,9 +3855,6 @@ packages:
     peerDependencies:
       expo: '*'
 
-  expo-json-utils@0.13.1:
-    resolution: {integrity: sha512-mlfaSArGVb+oJmUcR22jEONlgPp0wj4iNIHfQ2je9Q8WTOqMc0Ws9tUciz3JdJnhffdHqo/k8fpvf0IRmN5HPA==}
-
   expo-jwt@1.8.0:
     resolution: {integrity: sha512-X3Axd+0wOMWt+tV1i1eezPdCHRkBMMUsWcxvpj5m0RtjjdizlY1ZrSbZ9nBWaHwWkM9OID95paJmSBUhI0Sffw==}
 
@@ -3854,11 +3865,6 @@ packages:
 
   expo-linking@6.3.1:
     resolution: {integrity: sha512-xuZCntSBGWCD/95iZ+mTUGTwHdy8Sx+immCqbUBxdvZ2TN61P02kKg7SaLS8A4a/hLrSCwrg5tMMwu5wfKr35g==}
-
-  expo-manifests@0.14.3:
-    resolution: {integrity: sha512-L3b5/qocBPiQjbW0cpOHfnqdKZbTJS7sA3mgeDJT+mWga/xYsdpma1EfNmsuvrOzjLGjStr1k1fceM9Bl49aqQ==}
-    peerDependencies:
-      expo: '*'
 
   expo-modules-autolinking@1.11.3:
     resolution: {integrity: sha512-oYh8EZEvYF5TYppxEKUTTJmbr8j7eRRnrIxzZtMvxLTXoujThVPMFS/cbnSnf2bFm1lq50TdDNABhmEi7z0ngQ==}
@@ -3900,22 +3906,8 @@ packages:
   expo-status-bar@1.12.1:
     resolution: {integrity: sha512-/t3xdbS8KB0prj5KG5w7z+wZPFlPtkgs95BsmrP/E7Q0xHXTcDcQ6Cu2FkFuRM+PKTb17cJDnLkawyS5vDLxMA==}
 
-  expo-structured-headers@3.8.0:
-    resolution: {integrity: sha512-R+gFGn0x5CWl4OVlk2j1bJTJIz4KO8mPoCHpRHmfqMjmrMvrOM0qQSY3V5NHXwp1yT/L2v8aUmFQsBRIdvi1XA==}
-
   expo-system-ui@3.0.7:
     resolution: {integrity: sha512-KAs72F5JKhdIfPR9ZNVlRubTPK9uUuevPy5oYEp12xNEzSQcjZKvypH5NpwJuNWkXzrp3n3vZ+3pXsudA7J3KA==}
-    peerDependencies:
-      expo: '*'
-
-  expo-updates-interface@0.16.2:
-    resolution: {integrity: sha512-929XBU70q5ELxkKADj1xL0UIm3HvhYhNAOZv5DSk7rrKvLo7QDdPyl+JVnwZm9LrkNbH4wuE2rLoKu1KMgZ+9A==}
-    peerDependencies:
-      expo: '*'
-
-  expo-updates@0.25.27:
-    resolution: {integrity: sha512-1hyYZqBEXcAiEuSRPJ6dINTndGlWi6/bwlyYGjSnyoYfu/vzZQrJ+XA8JUP4EvJ3b0g8a0UOIjlDJ9ke9kMcfg==}
-    hasBin: true
     peerDependencies:
       expo: '*'
 
@@ -5802,9 +5794,6 @@ packages:
   react-is@18.3.1:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
 
-  react-native-aes-crypto@3.0.3:
-    resolution: {integrity: sha512-6yJjAix83xMDMCDUQLVpoHQMkTfeWoKrDXWP2Yrl68o2053aHPk3hTW6sCTYLj5HmftZ9S9DQ3DelP7WVlIDtw==}
-
   react-native-gesture-handler@2.16.2:
     resolution: {integrity: sha512-vGFlrDKlmyI+BT+FemqVxmvO7nqxU33cgXVsn6IKAFishvlG3oV2Ds67D5nPkHMea8T+s1IcuMm0bF8ntZtAyg==}
     peerDependencies:
@@ -6146,6 +6135,10 @@ packages:
   setprototypeof@1.2.0:
     resolution: {integrity: sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==}
 
+  sf-symbols-typescript@1.0.0:
+    resolution: {integrity: sha512-DkS7q3nN68dEMb4E18HFPDAvyrjDZK9YAQQF2QxeFu9gp2xRDXFMF8qLJ1EmQ/qeEGQmop4lmMM1WtYJTIcCMw==}
+    engines: {node: '>=10'}
+
   shallow-clone@3.0.1:
     resolution: {integrity: sha512-/6KqX+GVUdqPuPPd2LxDDxzX6CAbjJehAAOKlNpqqUpAqPM6HeL8f+o3a+JsyGjn2lv0WY8UsTgUJjU9Ok55NA==}
     engines: {node: '>=8'}
@@ -6225,6 +6218,12 @@ packages:
 
   snake-case@3.0.4:
     resolution: {integrity: sha512-LAOh4z89bGQvl9pFfNF8V146i7o7/CqFPbqzYgP+yYzDIDeS9HaNFtXABamRW+AQzEVODcvE79ljJ+8a9YSdMg==}
+
+  sonner@0.3.5:
+    resolution: {integrity: sha512-yIwaQ4dftMvFApuruto2t7wGyyaPRpj5qYBWYJIz4Z7uGcVn0IfqI/hWN0JyJN4izNbZFuCYZISf3fOGnvSlNQ==}
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
 
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
@@ -8445,19 +8444,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@expo/fingerprint@0.10.3':
-    dependencies:
-      '@expo/spawn-async': 1.7.2
-      chalk: 4.1.2
-      debug: 4.3.7
-      find-up: 5.0.0
-      minimatch: 3.1.2
-      p-limit: 3.1.0
-      resolve-from: 5.0.0
-      semver: 7.6.3
-    transitivePeerDependencies:
-      - supports-color
-
   '@expo/image-utils@0.5.1':
     dependencies:
       '@expo/spawn-async': 1.7.2
@@ -10616,6 +10602,24 @@ snapshots:
 
   '@tamagui/timer@1.116.12': {}
 
+  '@tamagui/toast@1.116.12(react@18.2.0)':
+    dependencies:
+      '@tamagui/animate-presence': 1.116.12(react@18.2.0)
+      '@tamagui/compose-refs': 1.116.12(react@18.2.0)
+      '@tamagui/constants': 1.116.12(react@18.2.0)
+      '@tamagui/core': 1.116.12(react@18.2.0)
+      '@tamagui/create-context': 1.116.12(react@18.2.0)
+      '@tamagui/dismissable': 1.116.12(react@18.2.0)
+      '@tamagui/helpers': 1.116.12(react@18.2.0)
+      '@tamagui/polyfill-dev': 1.116.12
+      '@tamagui/portal': 1.116.12
+      '@tamagui/stacks': 1.116.12(react@18.2.0)
+      '@tamagui/start-transition': 1.116.12
+      '@tamagui/text': 1.116.12(react@18.2.0)
+      '@tamagui/use-controllable-state': 1.116.12(react@18.2.0)
+      '@tamagui/visually-hidden': 1.116.12(react@18.2.0)
+      react: 18.2.0
+
   '@tamagui/toggle-group@1.116.12(react@18.2.0)':
     dependencies:
       '@tamagui/constants': 1.116.12(react@18.2.0)
@@ -10779,6 +10783,8 @@ snapshots:
       '@babel/types': 7.26.0
 
   '@types/cookie@0.6.0': {}
+
+  '@types/crypto-js@4.2.2': {}
 
   '@types/estree@1.0.6': {}
 
@@ -11093,8 +11099,6 @@ snapshots:
 
   application-config-path@0.1.1: {}
 
-  arg@4.1.0: {}
-
   arg@5.0.2: {}
 
   argparse@1.0.10:
@@ -11388,6 +11392,16 @@ snapshots:
     dependencies:
       run-applescript: 7.0.0
     optional: true
+
+  burnt@0.12.2(expo@51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0)))(react-dom@18.2.0(react@18.2.0))(react-native@0.74.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0):
+    dependencies:
+      expo: 51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))
+      react: 18.2.0
+      react-native: 0.74.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.2.79)(react@18.2.0)
+      sf-symbols-typescript: 1.0.0
+      sonner: 0.3.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+    transitivePeerDependencies:
+      - react-dom
 
   busboy@1.6.0:
     dependencies:
@@ -11771,6 +11785,8 @@ snapshots:
     optional: true
 
   crypt@0.0.2: {}
+
+  crypto-js@4.1.1: {}
 
   crypto-js@4.2.0: {}
 
@@ -12275,6 +12291,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  expo-clipboard@6.0.3(expo@51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))):
+    dependencies:
+      expo: 51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))
+
   expo-constants@16.0.2(expo@51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))):
     dependencies:
       '@expo/config': 9.0.4
@@ -12282,13 +12302,6 @@ snapshots:
       expo: 51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))
     transitivePeerDependencies:
       - supports-color
-
-  expo-crypto@13.0.2(expo@51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))):
-    dependencies:
-      base64-js: 1.5.1
-      expo: 51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))
-
-  expo-eas-client@0.12.0: {}
 
   expo-file-system@17.0.1(expo@51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))):
     dependencies:
@@ -12298,8 +12311,6 @@ snapshots:
     dependencies:
       expo: 51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))
       fontfaceobserver: 2.3.0
-
-  expo-json-utils@0.13.1: {}
 
   expo-jwt@1.8.0:
     dependencies:
@@ -12315,14 +12326,6 @@ snapshots:
       invariant: 2.2.4
     transitivePeerDependencies:
       - expo
-      - supports-color
-
-  expo-manifests@0.14.3(expo@51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))):
-    dependencies:
-      '@expo/config': 9.0.4
-      expo: 51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))
-      expo-json-utils: 0.13.1
-    transitivePeerDependencies:
       - supports-color
 
   expo-modules-autolinking@1.11.3:
@@ -12386,40 +12389,12 @@ snapshots:
 
   expo-status-bar@1.12.1: {}
 
-  expo-structured-headers@3.8.0: {}
-
   expo-system-ui@3.0.7(expo@51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))):
     dependencies:
       '@react-native/normalize-colors': 0.74.85
       debug: 4.3.7
       expo: 51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))
     transitivePeerDependencies:
-      - supports-color
-
-  expo-updates-interface@0.16.2(expo@51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))):
-    dependencies:
-      expo: 51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))
-
-  expo-updates@0.25.27(expo@51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))):
-    dependencies:
-      '@expo/code-signing-certificates': 0.0.5
-      '@expo/config': 9.0.4
-      '@expo/config-plugins': 8.0.10
-      '@expo/fingerprint': 0.10.3
-      '@expo/spawn-async': 1.7.2
-      arg: 4.1.0
-      chalk: 4.1.2
-      expo: 51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))
-      expo-eas-client: 0.12.0
-      expo-manifests: 0.14.3(expo@51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0)))
-      expo-structured-headers: 3.8.0
-      expo-updates-interface: 0.16.2(expo@51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0)))
-      fast-glob: 3.3.2
-      fbemitter: 3.0.0
-      ignore: 5.3.2
-      resolve-from: 5.0.0
-    transitivePeerDependencies:
-      - encoding
       - supports-color
 
   expo-web-browser@13.0.3(expo@51.0.38(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))):
@@ -14734,8 +14709,6 @@ snapshots:
 
   react-is@18.3.1: {}
 
-  react-native-aes-crypto@3.0.3: {}
-
   react-native-gesture-handler@2.16.2(react-native@0.74.5(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0):
     dependencies:
       '@egjs/hammerjs': 2.0.17
@@ -15223,6 +15196,8 @@ snapshots:
 
   setprototypeof@1.2.0: {}
 
+  sf-symbols-typescript@1.0.0: {}
+
   shallow-clone@3.0.1:
     dependencies:
       kind-of: 6.0.3
@@ -15299,6 +15274,11 @@ snapshots:
     dependencies:
       dot-case: 3.0.4
       tslib: 2.8.1
+
+  sonner@0.3.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
 
   source-map-js@1.2.1: {}
 

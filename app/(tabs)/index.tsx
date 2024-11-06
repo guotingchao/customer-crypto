@@ -46,7 +46,6 @@ const Home = () => {
             <Button
               borderRadius="$10"
               onPress={() => {
-                console.log('routers.push("/encrypto")');
                 routers.push("/encrypto");
               }}
             >
@@ -83,7 +82,14 @@ const Home = () => {
           </Card.Header>
           <Card.Footer>
             <XStack flex={1} />
-            <Button borderRadius="$10">进入</Button>
+            <Button
+              borderRadius="$10"
+              onPress={() => {
+                routers.push("/decrypto");
+              }}
+            >
+              进入
+            </Button>
           </Card.Footer>
           <Card.Background
             paddingLeft="$2"
