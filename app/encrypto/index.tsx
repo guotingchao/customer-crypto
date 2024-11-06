@@ -5,12 +5,10 @@ import {
   LockKeyhole,
   LockKeyholeOpen,
 } from "@tamagui/lucide-icons";
-import AES from "crypto-js/aes";
-import JWT from "expo-jwt";
-import { ScrollView } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import { useToastController } from "@tamagui/toast";
 import {
+  ScrollView,
   Button,
   Paragraph,
   Stack,
@@ -19,11 +17,14 @@ import {
   XStack,
   YStack,
 } from "tamagui";
+import { useCrypto } from "@/hooks/useCrypto";
 
-export const jwtSecret = "8WaeNYzS6EfE03QH";
-export const aesSecret = "mW5fW7iY6tP0hZ3yA3vU7rG1eU2qZ1tY";
 const EncryptoScreen = () => {
   const toast = useToastController();
+  const encrypto = useCrypto({
+    jwtSecret: "8WaeNYzS6EfE03QH",
+    aesSecret: "mW5fW7iY6tP0hZ3yA3vU7rG1eU2qZ1tY",
+  });
   const [plainText, setPlainText] = useState(
     JSON.stringify({ id: 22, name: "test" })
   );
@@ -31,17 +32,25 @@ const EncryptoScreen = () => {
 
   const clipboardCopy = async () => {
     const successByCopy = await Clipboard.setStringAsync(encryptedText);
-    console.log("clipboardCopy", successByCopy, encryptedText);
-    const tipsShow = toast.show(successByCopy ? "成功" : "失败", {
+    toast.show(successByCopy ? "成功" : "失败", {
       message: successByCopy ? "已复制到剪贴板" : "请重试或手动复制",
     });
-
-    console.debug("🐛🐛🐛 ----------------------------------🐛🐛🐛");
-    console.debug("🐛🐛🐛 ::: tipsShow:::", tipsShow);
-    console.debug("🐛🐛🐛 ----------------------------------🐛🐛🐛");
   };
 
-  const handleEncrypt = async () => {};
+  const handleEncrypt = async () => {
+    if (!plainText) {
+      toast.show("Warning", {
+        duration: 3000,
+        message: "请先输入明文",
+        burntOptions: {
+          preset: "error",
+        },
+      });
+      return;
+    }
+    const encrypted = encrypto.encrypt(JSON.parse(plainText));
+    setEnCryptedText(encrypted);
+  };
 
   return (
     <ScrollView

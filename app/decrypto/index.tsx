@@ -8,7 +8,6 @@ import {
 
 import { ScrollView } from "react-native";
 import JWT from "expo-jwt";
-import AES from "react-native-aes-crypto";
 
 import * as Clipboard from "expo-clipboard";
 import { useToastController } from "@tamagui/toast";
@@ -21,14 +20,19 @@ import {
   XStack,
   YStack,
 } from "tamagui";
+import { useCrypto } from "@/hooks/useCrypto";
 
 export const jwtSecret = "8WaeNYzS6EfE03QH";
 export const aesSecret = "mW5fW7iY6tP0hZ3yA3vU7rG1eU2qZ1tY";
 const EncryptoScreen = () => {
   const toast = useToastController();
+  const encrypto = useCrypto({
+    jwtSecret: "8WaeNYzS6EfE03QH",
+    aesSecret: "mW5fW7iY6tP0hZ3yA3vU7rG1eU2qZ1tY",
+  });
   const [plainText, setPlainText] = useState("");
   const [encryptedText, setEnCryptedText] = useState(
-    "xjxL2NOweljorCwPg4IDXF/mRDCpYONcpQbD3xvsJmQQIWViKQlJeseO535jW0NKyk/3wWznA1FjpV81F6oV8enlr3BHJ8ZZRIZ+J+eTbrmUB2VKZswAxYVVSKEOGcM4Hm3RQqNEOIN9PFdOkEBfjTgemTmQaNMGKVCiLaQepkA="
+    "WzuwlucRkP4phXB5W5YdOkXGSeFgy+K4YHyQVx3ydCM5o6bcGXSeCGaRdDorPzPkvluIS6wjQ+zCkrDvOEuFAz3WB7So1AVm2rPxGU1sPYe6UpbM+fPL+Ll7IdYk/2YuHXtBkAcZkQf5x4VHQzisIfk8vbF9tcu/XI8+NeH47KsMiFCVpENSQ1nUW7RForLEQV3MY/gkf0cDoTqezi5zWQ=="
   );
 
   const clipboardCopy = async () => {
@@ -37,6 +41,7 @@ const EncryptoScreen = () => {
       message: successByCopy ? "已复制到剪贴板" : "请重试或手动复制",
     });
   };
+
   const handleDencrypt = async () => {
     // step one:
     if (!encryptedText) {
@@ -49,30 +54,14 @@ const EncryptoScreen = () => {
       });
       return;
     }
-    console.debug("🐛🐛🐛 --------------------------------------------🐛🐛🐛");
-    console.debug("🐛🐛🐛 ::: encryptedText:::", encryptedText);
-    console.debug("🐛🐛🐛 --------------------------------------------🐛🐛🐛");
-    const jwtClipher = await AES.decrypt(
-      encryptedText,
-      aesSecret,
-      "50b2be42a6cab00c379d593be9e74fe6",
-      "aes-256-cbc"
-    );
 
-    console.debug("🐛🐛🐛 --------------------------------------🐛🐛🐛");
-    console.debug("🐛🐛🐛 ::: Decode jwtClipher:::", jwtClipher);
-    console.debug("🐛🐛🐛 --------------------------------------🐛🐛🐛");
+    const content = encrypto.decrypt(encryptedText);
 
-    const plainContent = JWT.decode(jwtClipher, jwtSecret);
-    console.debug(
-      "🐛🐛🐛 --------------------------------------------------🐛🐛🐛"
-    );
-    console.debug("🐛🐛🐛 ::: Decode plainContent:::", plainContent);
-    console.debug(
-      "🐛🐛🐛 --------------------------------------------------🐛🐛🐛"
-    );
+    console.debug("🐛🐛🐛 --------------------------------🐛🐛🐛");
+    console.debug("🐛🐛🐛 ::: content:::", content);
+    console.debug("🐛🐛🐛 --------------------------------🐛🐛🐛");
 
-    // setPlainText(plainContent.toString());
+    setPlainText(content);
   };
 
   return (

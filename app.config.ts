@@ -13,11 +13,25 @@ export default {
       resizeMode: "contain",
       backgroundColor: "#ffffff",
     },
+    android: {
+      package: "com.guozichun.cryptoCustomer",
+    },
     ios: {
       supportsTablet: true,
       bundleIdentifier: "com.guozichun.cryptoCustomer",
     },
-    plugins: ["expo-router", "expo-font"],
+    plugins: [
+      "expo-router",
+      "expo-font",
+      [
+        "expo-build-properties",
+        {
+          ios: {
+            deploymentTarget: "15.1",
+          },
+        },
+      ],
+    ],
     experiments: {
       typedRoutes: true,
     },

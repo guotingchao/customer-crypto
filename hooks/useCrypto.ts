@@ -1,3 +1,4 @@
+import "react-native-get-random-values";
 import CryptoJS from "crypto-js";
 import JWT from "expo-jwt";
 import { SupportedAlgorithms } from "expo-jwt/dist/types/algorithms";
@@ -7,17 +8,17 @@ const keySize = 8;
 const ivSize = 16;
 const iterations = 64;
 
-export type CryptoHooksProps<T extends JWTBody | String> = {
+export type CryptoHooksProps = {
   aesSecret: string;
   jwtSecret: string;
-  content: T;
 };
-export function useCrypto() {
+
+export function useCrypto(props: CryptoHooksProps) {
   const salt = CryptoJS.lib.WordArray.random(16);
 
   return {
-    encrypt: (props: CryptoHooksProps<JWTBody>) => {
-      const jwtContent = JWT.encode(props.content, props.jwtSecret, {
+    encrypt: (content: JWTBody) => {
+      const jwtContent = JWT.encode(content, props.jwtSecret, {
         alg: SupportedAlgorithms.HS256,
       });
       const key = CryptoJS.PBKDF2(props.aesSecret, salt, {
@@ -34,20 +35,20 @@ export function useCrypto() {
         hasher: CryptoJS.algo.SHA256,
       });
 
-      console.log(
-        "ciphertext",
-        encrypted.ciphertext.toString(CryptoJS.enc.Base64)
-      );
-      return (
-        salt.toString() +
-        iv.toString() +
-        encrypted.ciphertext.toString(CryptoJS.enc.Base64)
+      // console.log(
+      //   "Encrypted Result: ",
+      //   CryptoJS.enc.Base64.stringify(encrypted.iv),
+      //   CryptoJS.enc.Base64.stringify(encrypted.key),
+      //   CryptoJS.enc.Base64.stringify(encrypted.ciphertext)
+      // );
+      return CryptoJS.enc.Base64.stringify(
+        salt.concat(iv).concat(encrypted.ciphertext)
       );
     },
-    decrypt: (props: CryptoHooksProps<String>) => {
-      const salt = CryptoJS.enc.Base64.parse(props.content.substring(0, 32));
-      const iv = CryptoJS.enc.Base64.parse(props.content.substring(32, 32));
-      const encrypted = props.content.substring(64);
+    decrypt: (content: String) => {
+      const salt = CryptoJS.enc.Hex.parse(content.substring(0, 32));
+      const iv = CryptoJS.enc.Hex.parse(content.substring(32, 32));
+      const encrypted = content.substring(64);
 
       const key = CryptoJS.PBKDF2(props.aesSecret, salt, {
         keySize,
@@ -60,6 +61,10 @@ export function useCrypto() {
         mode: CryptoJS.mode.CBC,
         hasher: CryptoJS.algo.SHA256,
       });
+
+      console.debug("🐛🐛🐛 ------------------------------------🐛🐛🐛");
+      console.debug("🐛🐛🐛 ::: decrypted:::", decrypted.toString());
+      console.debug("🐛🐛🐛 ------------------------------------🐛🐛🐛");
 
       const jwtContent = JWT.decode(
         decrypted.toString(CryptoJS.enc.Base64),
