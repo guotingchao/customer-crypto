@@ -21,13 +21,10 @@ export function useCrypto(props: CryptoHooksProps) {
       const jwtContent = JWT.encode(content, props.jwtSecret, {
         alg: SupportedAlgorithms.HS256,
       });
-      const key = CryptoJS.PBKDF2(props.aesSecret, salt, {
-        keySize,
-        iterations: iterations,
-      });
+
+      const key = CryptoJS.SHA256(props.aesSecret);
 
       const iv = CryptoJS.lib.WordArray.random(ivSize);
-
       const encrypted = CryptoJS.AES.encrypt(jwtContent, key, {
         iv: iv,
         padding: CryptoJS.pad.Pkcs7,
@@ -35,43 +32,45 @@ export function useCrypto(props: CryptoHooksProps) {
         hasher: CryptoJS.algo.SHA256,
       });
 
-      // console.log(
-      //   "Encrypted Result: ",
-      //   CryptoJS.enc.Base64.stringify(encrypted.iv),
-      //   CryptoJS.enc.Base64.stringify(encrypted.key),
-      //   CryptoJS.enc.Base64.stringify(encrypted.ciphertext)
-      // );
-      return CryptoJS.enc.Base64.stringify(
-        salt.concat(iv).concat(encrypted.ciphertext)
-      );
+      const encryptedData = iv
+        .concat(encrypted.ciphertext)
+        .toString(CryptoJS.enc.Base64);
+
+      return encryptedData;
     },
-    decrypt: (content: String) => {
-      const salt = CryptoJS.enc.Hex.parse(content.substring(0, 32));
-      const iv = CryptoJS.enc.Hex.parse(content.substring(32, 32));
-      const encrypted = content.substring(64);
 
-      const key = CryptoJS.PBKDF2(props.aesSecret, salt, {
-        keySize,
-        iterations,
-      });
+    decrypt: (chilpher: string) => {
+      // const saltLength = 24;
+      // const ivLength = 24;
 
-      const decrypted = CryptoJS.AES.decrypt(encrypted, key, {
-        iv: iv,
-        padding: CryptoJS.pad.Pkcs7,
-        mode: CryptoJS.mode.CBC,
-        hasher: CryptoJS.algo.SHA256,
-      });
-
-      console.debug("🐛🐛🐛 ------------------------------------🐛🐛🐛");
-      console.debug("🐛🐛🐛 ::: decrypted:::", decrypted.toString());
-      console.debug("🐛🐛🐛 ------------------------------------🐛🐛🐛");
-
-      const jwtContent = JWT.decode(
-        decrypted.toString(CryptoJS.enc.Base64),
-        props.jwtSecret
+      // 将Base64还原为 `salt`、`iv` 和 `ciphertext`
+      // const salt = CryptoJS.enc.Base64.parse(encodeSalt);
+      const key = CryptoJS.SHA256(props.aesSecret);
+      const cipherTextBytes = CryptoJS.enc.Base64.parse(chilpher);
+      const iv = CryptoJS.lib.WordArray.create(
+        cipherTextBytes.words.slice(0, 4)
       );
-      console.log("jwtContent", jwtContent);
-      return JSON.stringify(jwtContent);
+      const cipherTextContent = CryptoJS.lib.WordArray.create(
+        cipherTextBytes.words.slice(4)
+      );
+
+      const decrypted = CryptoJS.AES.decrypt(
+        cipherTextContent.toString(CryptoJS.enc.Base64),
+        key,
+        {
+          mode: CryptoJS.mode.CBC,
+          key: key,
+          iv: iv,
+          padding: CryptoJS.pad.Pkcs7,
+        }
+      );
+
+      // 解码为UTF-8格式并返回原始数据
+      const decryptedContent = CryptoJS.enc.Utf8.stringify(decrypted);
+      // 解析JWT内容（假设是JSON格式）
+      const decodedJWT = JWT.decode(decryptedContent, props.jwtSecret);
+
+      return decodedJWT;
     },
   };
 }

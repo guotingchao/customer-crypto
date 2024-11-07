@@ -1,13 +1,13 @@
 import { useState } from "react";
 import {
   Bone,
+  ClipboardPaste,
   Copy,
   LockKeyhole,
   LockKeyholeOpen,
 } from "@tamagui/lucide-icons";
 
 import { ScrollView } from "react-native";
-import JWT from "expo-jwt";
 
 import * as Clipboard from "expo-clipboard";
 import { useToastController } from "@tamagui/toast";
@@ -31,9 +31,7 @@ const EncryptoScreen = () => {
     aesSecret: "mW5fW7iY6tP0hZ3yA3vU7rG1eU2qZ1tY",
   });
   const [plainText, setPlainText] = useState("");
-  const [encryptedText, setEnCryptedText] = useState(
-    "WzuwlucRkP4phXB5W5YdOkXGSeFgy+K4YHyQVx3ydCM5o6bcGXSeCGaRdDorPzPkvluIS6wjQ+zCkrDvOEuFAz3WB7So1AVm2rPxGU1sPYe6UpbM+fPL+Ll7IdYk/2YuHXtBkAcZkQf5x4VHQzisIfk8vbF9tcu/XI8+NeH47KsMiFCVpENSQ1nUW7RForLEQV3MY/gkf0cDoTqezi5zWQ=="
-  );
+  const [encryptedText, setEnCryptedText] = useState("");
 
   const clipboardCopy = async () => {
     const successByCopy = await Clipboard.setStringAsync(plainText);
@@ -56,12 +54,7 @@ const EncryptoScreen = () => {
     }
 
     const content = encrypto.decrypt(encryptedText);
-
-    console.debug("🐛🐛🐛 --------------------------------🐛🐛🐛");
-    console.debug("🐛🐛🐛 ::: content:::", content);
-    console.debug("🐛🐛🐛 --------------------------------🐛🐛🐛");
-
-    setPlainText(content);
+    setPlainText(JSON.stringify(content));
   };
 
   return (
@@ -83,6 +76,9 @@ const EncryptoScreen = () => {
           <Paragraph color="$gray5Dark" size="$5">
             密文:
           </Paragraph>
+          {!encryptedText ? (
+            <Button icon={ClipboardPaste}>从剪切板复制</Button>
+          ) : null}
         </XStack>
         <TextArea
           id="encrypted"
@@ -115,6 +111,7 @@ const EncryptoScreen = () => {
         </XStack>
         <Text
           id="plain"
+          color="$black5"
           style={{
             padding: 10,
             minHeight: 150,
