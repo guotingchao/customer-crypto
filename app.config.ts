@@ -2,7 +2,8 @@ export default {
   expo: {
     name: "cyrpto-customer",
     displayName: "cyrpto-customer",
-    slug: "cyrpto",
+    owner: "guotingchao",
+    slug: "crypto-customer",
     version: "1.0.0",
     orientation: "portrait",
     icon: "./assets/images/icon.png",
@@ -34,6 +35,11 @@ export default {
     ],
     experiments: {
       typedRoutes: true,
+    },
+    extra: {
+      eas: {
+        projectId: "d96203dc-2eea-4b63-adb0-1e8f861c3006",
+      },
     },
   },
 };

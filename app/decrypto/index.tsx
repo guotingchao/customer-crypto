@@ -3,6 +3,7 @@ import {
   Bone,
   ClipboardPaste,
   Copy,
+  Egg,
   LockKeyhole,
   LockKeyholeOpen,
 } from "@tamagui/lucide-icons";
@@ -93,7 +94,7 @@ const EncryptoScreen = () => {
       </YStack>
 
       <Stack padding="$2" marginBottom="$2" alignItems="center">
-        <Button width="50%" size="$3.5" onPress={handleDencrypt} icon={Bone}>
+        <Button width="50%" size="$3.5" onPress={handleDencrypt} icon={Egg}>
           解密
         </Button>
       </Stack>
