@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  Bone,
   ClipboardPaste,
   Copy,
   Egg,
@@ -21,6 +20,7 @@ import {
   XStack,
   YStack,
 } from "tamagui";
+
 import { useCrypto } from "@/hooks/useCrypto";
 
 export const jwtSecret = "8WaeNYzS6EfE03QH";
@@ -38,6 +38,14 @@ const EncryptoScreen = () => {
     const successByCopy = await Clipboard.setStringAsync(plainText);
     toast.show(successByCopy ? "成功" : "失败", {
       message: successByCopy ? "已复制到剪贴板" : "请重试或手动复制",
+    });
+  };
+
+  const handleClipboardPaste = async () => {
+    const content = await Clipboard.getStringAsync();
+    setEnCryptedText(content.trim());
+    toast.show("成功", {
+      message: "已从剪贴板复制成功",
     });
   };
 
@@ -70,15 +78,21 @@ const EncryptoScreen = () => {
         <XStack
           gap="$2"
           marginBottom="$1"
-          justifyContent="flex-start"
+          justifyContent="space-between"
           alignContent="center"
         >
-          <LockKeyhole size="$2" color="$red1Dark" />
           <Paragraph color="$gray5Dark" size="$5">
+            <LockKeyhole size="$1" mx="$1" color="$red1Dark" />
             密文:
           </Paragraph>
           {!encryptedText ? (
-            <Button icon={ClipboardPaste}>从剪切板复制</Button>
+            <Button
+              size="$2"
+              icon={ClipboardPaste}
+              onPress={handleClipboardPaste}
+            >
+              从剪切板复制
+            </Button>
           ) : null}
         </XStack>
         <TextArea
@@ -94,7 +108,7 @@ const EncryptoScreen = () => {
       </YStack>
 
       <Stack padding="$2" marginBottom="$2" alignItems="center">
-        <Button width="50%" size="$3.5" onPress={handleDencrypt} icon={Egg}>
+        <Button width="50%" size="$3" onPress={handleDencrypt} icon={Egg}>
           解密
         </Button>
       </Stack>
@@ -105,8 +119,8 @@ const EncryptoScreen = () => {
           justifyContent="flex-start"
           alignContent="center"
         >
-          <LockKeyholeOpen size="$2" color="$red1Dark" />
           <Paragraph color="$gray5Dark" size="$5">
+            <LockKeyholeOpen size="$1" mx="$1" color="$red1Dark" />
             明文
           </Paragraph>
         </XStack>

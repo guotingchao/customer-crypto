@@ -4,6 +4,7 @@ import {
   Copy,
   LockKeyhole,
   LockKeyholeOpen,
+  Network,
 } from "@tamagui/lucide-icons";
 import * as Clipboard from "expo-clipboard";
 import { useToastController } from "@tamagui/toast";
@@ -11,13 +12,14 @@ import {
   ScrollView,
   Button,
   Paragraph,
-  Stack,
   Text,
   TextArea,
   XStack,
   YStack,
+  H5,
 } from "tamagui";
 import { useCrypto } from "@/hooks/useCrypto";
+import { BASE_URL, cryptoTestRequest } from "@/services/base.service";
 
 const EncryptoScreen = () => {
   const toast = useToastController();
@@ -37,6 +39,14 @@ const EncryptoScreen = () => {
     });
   };
 
+  const handleRemoteEncrypt = async () => {
+    const res = await cryptoTestRequest(JSON.parse(plainText));
+
+    console.debug("🐛🐛🐛 ------------------------🐛🐛🐛");
+    console.debug("🐛🐛🐛 ::: res:::", res);
+    console.debug("🐛🐛🐛 ------------------------🐛🐛🐛");
+  };
+
   const handleEncrypt = async () => {
     if (!plainText) {
       toast.show("Warning", {
@@ -49,7 +59,7 @@ const EncryptoScreen = () => {
       return;
     }
     const encrypted = encrypto.encrypt(JSON.parse(plainText));
-    setEnCryptedText(encrypted);
+    setEnCryptedText(encrypted!);
   };
 
   return (
@@ -67,8 +77,8 @@ const EncryptoScreen = () => {
           justifyContent="flex-start"
           alignContent="center"
         >
-          <LockKeyholeOpen size="$2" color="$red1Dark" />
           <Paragraph color="$gray5Dark" size="$5">
+            <LockKeyholeOpen size="$1" mx="$1" color="$red1Dark" />
             明文
           </Paragraph>
         </XStack>
@@ -83,12 +93,38 @@ const EncryptoScreen = () => {
           }}
         />
       </YStack>
-      <Stack padding="$2" marginBottom="$2" alignItems="center">
-        <Button width="50%" size="$3.5" onPress={handleEncrypt} icon={Bone}>
-          加密
+      <XStack m="$2.5" justifyContent="center" alignItems="center" gap="$1">
+        <H5 color="$gray5Dark" textAlign="center">
+          远程地址:
+        </H5>
+        <Text
+          color="$green10Light"
+          textAlign="center"
+          style={{ textDecorationLine: "underline" }}
+          onPress={() => {
+            Clipboard.setStringAsync(BASE_URL);
+            toast.show("地址已复制到剪贴板", {
+              duration: 3000,
+            });
+          }}
+        >
+          {BASE_URL}
+        </Text>
+      </XStack>
+      <XStack
+        padding="$2"
+        marginBottom="$2"
+        alignItems="center"
+        gap="$3"
+        justifyContent="center"
+      >
+        <Button onPress={handleEncrypt} icon={Bone}>
+          本地加密
         </Button>
-      </Stack>
-
+        <Button onPress={handleRemoteEncrypt} icon={Network}>
+          远程加密测试
+        </Button>
+      </XStack>
       <YStack padding="$2">
         <XStack
           gap="$2"
@@ -96,9 +132,9 @@ const EncryptoScreen = () => {
           justifyContent="flex-start"
           alignContent="center"
         >
-          <LockKeyhole size="$2" color="$red1Dark" />
           <Paragraph color="$gray5Dark" size="$5">
-            密文:
+            <LockKeyhole size="$1" mx="$1" color="$red1Dark" />
+            密文/远程报文:
           </Paragraph>
         </XStack>
         <Text
