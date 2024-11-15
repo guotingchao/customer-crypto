@@ -11,9 +11,12 @@ import {
   YStack,
   ScrollView,
 } from "tamagui";
+import { useNetworkState } from "expo-network";
 
 const Home = () => {
   const routers = useRouter();
+  const networkState = useNetworkState();
+  console.log(`Current network type: ${networkState.type}`);
   return (
     <ScrollView
       backgroundColor="$background"

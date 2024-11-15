@@ -6,7 +6,7 @@ import {
 } from "@/utils/requet.interceptor";
 import axios, { InternalAxiosRequestConfig } from "axios";
 
-export const BASE_URL = "http://115.159.132.203";
+export const BASE_URL = "https://jsonplaceholder.typicode.com";
 const fetch = axios.create({
   baseURL: BASE_URL,
   timeout: 15 * 1000,
@@ -43,7 +43,7 @@ const request = {
 
 export const cryptoTestRequest = async (data: any) => {
   console.log("🐛🐛🐛 ------------------------🐛🐛🐛");
-  const response = await request.post("/api/home/test", data);
+  const response = await request.get("/posts", data);
 
   console.debug("🐛🐛🐛 ----------------------------------🐛🐛🐛");
   console.debug("🐛🐛🐛 ::: response:::", response);

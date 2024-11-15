@@ -18,6 +18,7 @@
 import "react-native-get-random-values";
 import CryptoJS from "crypto-js";
 import JWT from "expo-jwt";
+import { encode, decode } from "base-64";
 import { SupportedAlgorithms } from "expo-jwt/dist/types/algorithms";
 import { JWTBody } from "expo-jwt/dist/types/jwt";
 import { useCallback } from "react";
@@ -31,12 +32,17 @@ export type CryptoHooksProps = {
 
 //MARK - 模拟PHP 中JWT::urlsafeB64Encode($r);加密最后加一步
 const urlsafeB64Encode = (data: string) => {
-  return btoa(data).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  const safeEncode = global.btoa ? global.btoa : encode;
+  return safeEncode(data)
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/, "");
 };
 
 //MARK - 模拟PHP 中JWT::urlsafeB64Decode($d);解密第一步加一步
 const urlsafeB64Decode = (data: string) => {
-  return atob(
+  const safeDecode = global.atob ? global.atob : decode;
+  return safeDecode(
     data
       .replace(/-/g, "+")
       .replace(/_/g, "/")
