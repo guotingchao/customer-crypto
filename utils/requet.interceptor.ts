@@ -56,23 +56,14 @@ const interceptorsByRequest = async (
   return config;
 };
 
-const interceptorsByResponse = (
-  response: any
-): AxiosResponse<ApiResponse> | Promise<ApiResponse> => {
-  // 获取事务对象
-  const transaction = response.config.metadata?.transaction;
-
-  // 计算请求耗时
-  const endTime = Date.now();
-  const startTime = transaction.startTimestamp;
-  const duration = endTime - startTime;
-
-  // 停止事务
-  transaction.finish();
-
+const interceptorsByResponse = async (
+  response: Promise<ApiResponse> & any
+): Promise<ApiResponse> => {
   //NOTE - 进行解密
   try {
-    response.data = decrypt(response.data, aesSecret, jwtSecret);
+    if (response && response.status === 200 && response.data.r) {
+      response.data = decrypt(response.data.r, aesSecret, jwtSecret);
+    }
   } catch (error) {
     // 处理解密错误
     console.error("解密响应数据时出错:", error);

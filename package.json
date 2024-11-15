@@ -27,6 +27,7 @@
     "@tamagui/lucide-icons": "^1.116.12",
     "@tamagui/toast": "^1.116.12",
     "@types/crypto-js": "^4.2.2",
+    "apisauce": "^3.1.0",
     "axios": "^1.4.0",
     "base-64": "^1.0.0",
     "burnt": "^0.12.2",

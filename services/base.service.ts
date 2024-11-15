@@ -1,18 +1,20 @@
 import {
   ApiResponse,
-  interceptorsByCardbrotherResponse,
   interceptorsByRequest,
+  interceptorsByResponse,
   responseError,
 } from "@/utils/requet.interceptor";
-import axios, { InternalAxiosRequestConfig } from "axios";
 
-export const BASE_URL = "https://jsonplaceholder.typicode.com";
-const fetch = axios.create({
+import { create } from "apisauce";
+import { InternalAxiosRequestConfig } from "axios";
+
+export const BASE_URL = "http://115.159.132.203";
+const api = create({
   baseURL: BASE_URL,
-  timeout: 15 * 1000,
+  headers: { Accept: "application/json" },
 });
 
-fetch.interceptors.request.use(
+api.axiosInstance.interceptors.request.use(
   (config) => {
     const configs = interceptorsByRequest(
       config
@@ -24,29 +26,29 @@ fetch.interceptors.request.use(
   }
 );
 
-fetch.interceptors.response.use(
-  (response) => interceptorsByCardbrotherResponse(response),
+api.axiosInstance.interceptors.response.use(
+  async (response) => await interceptorsByResponse(response),
   (err) => responseError(err)
 );
 
 const request = {
   get: async (url: string, params?: any): Promise<ApiResponse | any> => {
-    return await fetch.get(url, { params });
+    return await api.get(url, { params });
   },
-  post: async (url: string, params?: any) => fetch.post(url, params),
+  post: async (url: string, params?: any) => api.post(url, params),
   postFormData: (url: string, params?: any) =>
-    fetch.post(url, params, {
+    api.post(url, params, {
       headers: { "Content-Type": "multipart/form-data" },
     }),
-  delete: (url: string, params?: any) => fetch.delete(url, { params }),
+  delete: (url: string, params?: any) => api.delete(url, { params }),
 };
 
-export const cryptoTestRequest = async (data: any) => {
-  console.log("🐛🐛🐛 ------------------------🐛🐛🐛");
-  const response = await request.get("/posts", data);
+export const cryptoTestRequest = async (payload: any) => {
+  const response = await request.post("/api/home/test", payload);
 
   console.debug("🐛🐛🐛 ----------------------------------🐛🐛🐛");
-  console.debug("🐛🐛🐛 ::: response:::", response);
+  console.debug("🐛🐛🐛 ::: response:::", response.data);
   console.debug("🐛🐛🐛 ----------------------------------🐛🐛🐛");
-  return response;
+
+  return response.data;
 };

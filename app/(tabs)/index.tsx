@@ -16,7 +16,13 @@ import { useNetworkState } from "expo-network";
 const Home = () => {
   const routers = useRouter();
   const networkState = useNetworkState();
-  console.log(`Current network type: ${networkState.type}`);
+
+  console.debug("🐛🐛🐛 ------------------------------------------🐛🐛🐛");
+  console.debug("🐛🐛🐛 ::: networkState:::", networkState.type);
+  console.debug("🐛🐛🐛 ::: networkState:::", networkState.isConnected);
+  console.debug("🐛🐛🐛 ::: networkState:::", networkState.isInternetReachable);
+  console.debug("🐛🐛🐛 ------------------------------------------🐛🐛🐛");
+
   return (
     <ScrollView
       backgroundColor="$background"

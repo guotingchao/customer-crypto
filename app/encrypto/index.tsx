@@ -41,10 +41,7 @@ const EncryptoScreen = () => {
 
   const handleRemoteEncrypt = async () => {
     const res = await cryptoTestRequest(JSON.parse(plainText));
-
-    console.debug("🐛🐛🐛 ------------------------🐛🐛🐛");
-    console.debug("🐛🐛🐛 ::: res:::", res);
-    console.debug("🐛🐛🐛 ------------------------🐛🐛🐛");
+    setEnCryptedText(JSON.stringify(res));
   };
 
   const handleEncrypt = async () => {
