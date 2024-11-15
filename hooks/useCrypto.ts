@@ -32,22 +32,15 @@ export type CryptoHooksProps = {
 
 //MARK - 模拟PHP 中JWT::urlsafeB64Encode($r);加密最后加一步
 const urlsafeB64Encode = (data: string) => {
-  const safeEncode = global.btoa ? global.btoa : encode;
-  return safeEncode(data)
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_")
-    .replace(/=+$/, "");
+  const safeEncode = encode;
+  return safeEncode(data);
 };
 
 //MARK - 模拟PHP 中JWT::urlsafeB64Decode($d);解密第一步加一步
-const urlsafeB64Decode = (data: string) => {
-  const safeDecode = global.atob ? global.atob : decode;
-  return safeDecode(
-    data
-      .replace(/-/g, "+")
-      .replace(/_/g, "/")
-      .padEnd(data.length + ((4 - (data.length % 4)) % 4), "=")
-  );
+const urlsafeBase64Decode = (data: string) => {
+  const safeDecode = decode;
+  const decodeStr = safeDecode(data);
+  return decodeStr;
 };
 
 const generateKey = (aesSecret: string) => {
@@ -94,7 +87,7 @@ export const decrypt = (
 ) => {
   try {
     const key = generateKey(aesSecret);
-    const safeCipher = urlsafeB64Decode(cipher);
+    const safeCipher = urlsafeBase64Decode(cipher);
     const cipherTextBytes = CryptoJS.enc.Base64.parse(safeCipher);
 
     // 提取IV和密文

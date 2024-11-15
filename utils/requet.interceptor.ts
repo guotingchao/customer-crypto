@@ -62,6 +62,7 @@ const interceptorsByResponse = async (
   //NOTE - 进行解密
   try {
     if (response && response.status === 200 && response.data.r) {
+      console.log("response.data.r", response.data.r);
       response.data = decrypt(response.data.r, aesSecret, jwtSecret);
     }
   } catch (error) {

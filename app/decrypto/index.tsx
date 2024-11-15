@@ -23,8 +23,6 @@ import {
 
 import { useCrypto } from "@/hooks/useCrypto";
 
-export const jwtSecret = "8WaeNYzS6EfE03QH";
-export const aesSecret = "mW5fW7iY6tP0hZ3yA3vU7rG1eU2qZ1tY";
 const EncryptoScreen = () => {
   const toast = useToastController();
   const encrypto = useCrypto({
@@ -97,7 +95,12 @@ const EncryptoScreen = () => {
         </XStack>
         <TextArea
           id="encrypted"
-          style={{ borderWidth: 1, borderRadius: 10, minHeight: 200 }}
+          style={{
+            borderWidth: 1,
+            borderRadius: 10,
+            minHeight: 200,
+            maxHeight: 400,
+          }}
           color="$green10Light"
           padding="$3"
           placeholder="请输入需要加密的内容，点击加密按钮后显示加密后的内容"
